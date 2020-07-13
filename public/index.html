@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Search Engine</title>
+
+    <!-- update the version number as needed -->
+    <script defer src="/__/firebase/7.16.0/firebase-app.js"></script>
+    <!-- include only the Firebase features as you need -->
+    <script defer src="/__/firebase/7.16.0/firebase-auth.js"></script>
+    <script defer src="/__/firebase/7.16.0/firebase-firestore.js"></script>
+    <script defer src="/__/firebase/7.16.0/firebase-messaging.js"></script>
+    <script defer src="/__/firebase/7.16.0/firebase-storage.js"></script>
+    <!-- initialize the SDK after all desired features are loaded -->
+    <script defer src="/__/firebase/init.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/papercss@1.6.1/dist/paper.min.css">
+  </head>
+  <body>
+    <div id="searchDiv">
+      <input type="text" id="search">
+      <button id="feelingLucky">I'm Feeling Lucky</button>
+    </div>
+    <button id="imagesButton">Images</button>
+    <h1 id="time" style="font-size: 20px; color: #70757a; font-size: 14px;"></h1>
+    <div id="returnDisplay">
+
+    </div>
+
+
+    <div id="card">
+      <img src="" alt="" id="card-img">
+      <h1 id="card-title"></h1>
+      <p id="card-tag"></p>
+      <p id="card-description"></p>
+    </div>
+
+    <style>
+
+      img {
+        height: 100px;
+        width: 100px;
+      }
+
+      * {
+        font-family: 'Roboto', arial, sans-serif;
+      }
+
+      p {
+        margin: 0px;
+      }
+
+      #card {
+        position: absolute;
+        right: 2.5%;
+        top: 10%;
+        width: 15%;
+        height: 500px;
+        border: 2px solid grey;
+        border-radius: 10px;
+      }
+
+      #card-img {
+        width: 50%;
+      }
+
+      #card-description {
+        font-size: 15px;
+        font-style: normal;
+      }
+
+      #searchDiv {
+        float: left;
+        padding-left: 15%;
+        padding-bottom: 10px;
+      }
+
+      #searchDiv input {
+        width: 500px;
+      }
+
+      #content {
+        float: left;
+        padding-left: 15%;
+        margin-bottom: 28px;
+      }
+
+      #urlDisplay {
+        font-size: 14px;
+        color: #202124;
+      }
+
+      #titleDisplay {
+        font-size: 20px;
+        text-decoration: none;
+      }
+
+      #descriptionDisplay {
+        color: #4d5156;
+      }
+
+      #time {
+        float: left;
+        padding-left: 25%;
+      }
+    </style>
+
+    <script src="index.js"></script>
+  </body>
+</html>
