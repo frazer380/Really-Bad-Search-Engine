@@ -3,7 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RBSE - History</title>
+    <title>Delete Account</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <!-- update the version number as needed -->
     <script defer src="/__/firebase/7.16.0/firebase-app.js"></script>
     <!-- include only the Firebase features as you need -->
     <script defer src="/__/firebase/7.16.0/firebase-auth.js"></script>
@@ -12,7 +14,6 @@
     <script defer src="/__/firebase/7.16.0/firebase-storage.js"></script>
     <!-- initialize the SDK after all desired features are loaded -->
     <script defer src="/__/firebase/init.js"></script>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -29,46 +30,46 @@
               <a class="nav-link" id="credentials">Credentials <span class="sr-only"></span></a>
             </li>
             <li class="nav-item active">
-                <a class="nav-link" href="history.html">History <span class="sr-only">(current)<span></a>
+                <a class="nav-link" href="history.html">History <span class="sr-only"><span></a>
               </li>
               <li class="nav-item active">
-                <a class="nav-link" href="delete.html" id="delete">Delete Your Account <span class="sr-only"><span></a>
+                <a class="nav-link" id="delete">Delete Your Account <span class="sr-only">(current)<span></a>
               </li>
           </ul>
         </div>
       </nav>
       <div class="jumbotron" id="jumbotron">
-        <div id="history">
-        </div>
+            <button id="delete">Delete Account Perminately</button>
+      </div>
+      <div class="alert alert-danger" role="alert" id="alert">
+        A simple danger alert—check it out!
       </div>
     </div>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            try {
-                let app = firebase.app();
-                let features = ['auth', 'database', 'messaging', 'storage'].filter(feature => typeof app[feature] === 'function');
-                let db = firebase.firestore();
+            document.getElementById("alert").style.display = "none";
+            let app = firebase.app();
+            let features = ['auth', 'database', 'messaging', 'storage'].filter(feature => typeof app[feature] === 'function');
+            let db = firebase.firestore();
+
+            
+            function deleteAccount() {
                 firebase.auth().onAuthStateChanged(function(user) {
-                        if (user) {
-                        let users = db.collection("users");
-                        let ref = users.doc(user.uid);
-                        ref.get().then(function(doc) {
-                            let history = doc.data().History;
-                            history = history.split(",");
-                            let historyDisplay =  document.getElementById("history");
-                            for(i=0;i<history.length;i++) {
-                                historyDisplay.innerHTML = `${historyDisplay.innerHTML} <li>${history[i]}</li>`;
-                            }
-                        })
-                        } else {
-                        // Do nothing
-                        }
+                    db.collection("users").doc(user.uid).delete().then(() => {
+                        user.delete().then(function() {
+                            document.getElementById("jumbotron").innerHTML = "<h1>Account Deleted!</h1>";
+                        }).catch(function(error) {
+                            document.getElementById("jumbotron").innerHTML = `<h1>${error.message}</h1>`;
+                        });
+                        }).catch(error => {
+                            console.log(error);
+                    })
+
                 });
             }
-            catch(err) {
-                console.log(err);
-            }
-        });
+
+            document.getElementById("delete").addEventListener("click", deleteAccount());
+        })
     </script>
 </body>
 </html>

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RBSE - Signup</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <!-- update the version number as needed -->
+    <script defer src="/__/firebase/7.16.0/firebase-app.js"></script>
+    <!-- include only the Firebase features as you need -->
+    <script defer src="/__/firebase/7.16.0/firebase-auth.js"></script>
+    <script defer src="/__/firebase/7.16.0/firebase-firestore.js"></script>
+    <script defer src="/__/firebase/7.16.0/firebase-messaging.js"></script>
+    <script defer src="/__/firebase/7.16.0/firebase-storage.js"></script>
+    <!-- initialize the SDK after all desired features are loaded -->
+    <script defer src="/__/firebase/init.js"></script>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+      
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <a class="nav-link" href="index.html">Home <span class="sr-only"></span></a>
+            </li>
+            <li class="nav-item active">
+              <a class="nav-link" id="credentials">Credentials <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link" href="history.html">History <span class="sr-only"><span></a>
+              </li>
+              <li class="nav-item active">
+                <a class="nav-link" href="delete.html" id="delete">Delete Your Account <span class="sr-only"><span></a>
+              </li>
+          </ul>
+        </div>
+      </nav>
+      <div class="jumbotron" id="jumbotron">
+            <label for="email">Email</label><br><input type="email" id="email"><br>
+            <label for="password">Password</label><br><input type="password" id="password"><br>
+            <label for="confirmPassword">Confirm Password</label><br><input type="password" id="confirmPassword"><br>
+
+            <a class="btn btn-primary btn-lg" role="button" style="margin-top: 1%;" id="submit">Update Credentials</a>
+      </div>
+      <div class="alert alert-danger" role="alert" id="alert">
+        A simple danger alert—check it out!
+      </div>
+    </div>
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        
+        document.getElementById("alert").style.display = "none";
+        let app = firebase.app();
+        let features = ['auth', 'database', 'messaging', 'storage'].filter(feature => typeof app[feature] === 'function');
+        let db = firebase.firestore();
+
+        firebase.auth().onAuthStateChanged(function(user) {
+            if (user) {
+                name = user.displayName;
+                email = user.email;
+                photoUrl = user.photoURL;
+                emailVerified = user.emailVerified;
+                uid = user.uid;
+                document.getElementById("submit").addEventListener("click", function(){
+                    document.getElementById("alert").style.display = "none";
+                    user.updateEmail(document.getElementById("email").value).then(function() {
+                        console.log(document.getElementById("email").value)
+                    }).catch(function(error) {
+                        document.getElementById("alert").style.display = "block";
+                        document.getElementById("alert").innerHTML = error.message;
+                    });
+                    if(document.getElementById("password").value == document.getElementById("confirmPassword").value) {
+                        user.updatePassword(document.getElementById("password").value).then(function() {
+                            console.log("Success")
+                        }).catch(function(error) {
+                            document.getElementById("alert").style.display = "block";
+                            document.getElementById("alert").innerHTML = error.message;
+
+                        });
+                    }
+                });
+            } else {
+                // No user is signed in.
+            }
+        });
+    });
+    </script>
+
+    <style>
+        .box {
+            text-align: center;
+            padding-top: 15%;
+            display: block;
+            margin: 0 auto;
+            width: 18rem; /* Set this based on the size of the text box you are using */
+        }
+    </style>
+</body>
+</html>
