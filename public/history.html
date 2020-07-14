@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RBSE - History</title>
+    <script defer src="/__/firebase/7.16.0/firebase-app.js"></script>
+    <!-- include only the Firebase features as you need -->
+    <script defer src="/__/firebase/7.16.0/firebase-auth.js"></script>
+    <script defer src="/__/firebase/7.16.0/firebase-firestore.js"></script>
+    <script defer src="/__/firebase/7.16.0/firebase-messaging.js"></script>
+    <script defer src="/__/firebase/7.16.0/firebase-storage.js"></script>
+    <!-- initialize the SDK after all desired features are loaded -->
+    <script defer src="/__/firebase/init.js"></script>
+</head>
+<body>
+    <div id="history">
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            try {
+                let app = firebase.app();
+                let features = ['auth', 'database', 'messaging', 'storage'].filter(feature => typeof app[feature] === 'function');
+                let db = firebase.firestore();
+                firebase.auth().onAuthStateChanged(function(user) {
+                        if (user) {
+                        let users = db.collection("users");
+                        let ref = users.doc(user.uid);
+                        ref.get().then(function(doc) {
+                            let history = doc.data().History;
+                            history = history.split(",");
+                            let historyDisplay =  document.getElementById("history");
+                            for(i=0;i<history.length;i++) {
+                                historyDisplay.innerHTML = `${historyDisplay.innerHTML} <li>${history[i]}</li>`;
+                            }
+                        })
+                        } else {
+                        // Do nothing
+                        }
+                });
+            }
+            catch(err) {
+                console.log(err);
+            }
+        });
+    </script>
+</body>
+</html>

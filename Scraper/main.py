@@ -5,7 +5,7 @@ from bs4 import BeautifulSoup
 from requests import get
 import sys
 
-cred = credentials.Certificate("json")
+cred = credentials.Certificate("search-engine-91525-firebase-adminsdk-n1ea3-4dfc0c98cb.json")
 
 app = firebase_admin.initialize_app(cred)
 

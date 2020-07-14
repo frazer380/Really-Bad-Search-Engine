@@ -1,0 +1,114 @@
+* {
+    font-family: "Roboto", Arial, 'Times New Roman', Times, serif
+}
+
+body {
+    background-color: #f8f9fa;
+}
+
+a {
+    margin-right: 10px;
+    font-size: 15px;
+}
+
+#profilePicture  {
+    border-radius: 50%;
+    background-color: #fff;
+}
+
+#profilePicture:hover {
+    border: 1px solid grey;
+}
+
+
+input {
+    margin-top: 5px;
+    padding-left: 10px;
+    height: 44px;
+    border: 1px solid #dfe1e5;
+    border-radius: 24px;
+    width: 500px;
+}
+
+
+input:focus {
+    outline: none;
+}
+
+.box {
+    text-align: center;
+    padding-top: 15%;
+    display: block;
+    margin: 0 auto;
+    width: 500px; /* Set this based on the size of the text box you are using */
+}
+
+.top {
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    padding-top: 5px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #ebebeb;
+    background-color: #ffff;
+}
+
+.top input {
+    margin-left: 14%;
+}
+
+.top label {
+    padding-left: 1%;
+    font-size: 20px;
+    font-weight: 500;
+}
+
+#returnDisplay {
+    margin-left: 20%;
+    margin-top: 5%;
+}
+
+#content {
+    width: 600px;
+    height: 90px;
+    margin-bottom: 30px;
+}
+
+#urlDisplay {
+    font-size: 14px;
+    color: #202124;
+    margin: 0;
+}
+
+#titleDisplay {
+    font-size: 20px;
+    padding-top: 4px;
+    margin-bottom: 3px;
+}
+
+#descriptionDisplay {
+    font-size: 14px;
+    color: #4d5156;
+}
+
+#card {
+    margin-right: 1%;
+    float: right;
+}
+
+#returnDisplay img {
+    width: 100px;
+    height: 100px;
+}
+
+#labelReturn a {
+    color: #000000;
+    text-decoration: none;
+}
+
+.accountInfo {
+    position: absolute;
+    top: 5%;
+    right: 2.5%;
+}

@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Search Engine</title>
+    <title>RBSE</title>
 
     <!-- update the version number as needed -->
     <script defer src="/__/firebase/7.16.0/firebase-app.js"></script>
@@ -14,97 +14,78 @@
     <script defer src="/__/firebase/7.16.0/firebase-storage.js"></script>
     <!-- initialize the SDK after all desired features are loaded -->
     <script defer src="/__/firebase/init.js"></script>
-    <link rel="stylesheet" href="https://unpkg.com/papercss@1.6.1/dist/paper.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+
+    <script src="https://unpkg.com/react@16/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script>
   </head>
   <body>
-    <div id="searchDiv">
-      <input type="text" id="search">
-      <button id="feelingLucky">I'm Feeling Lucky</button>
+    <div id="notSearched">
+      <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+      
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+              <a class="nav-link" href="about.html">About <span class="sr-only">(current)</span></a>
+            </li>
+          </ul>
+        </div>
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item active">
+            <a class="nav-link" id="imagesButton">Images <span class="sr-only"></span></a>
+          </li>
+        </ul>
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item active">
+            <img src="https://lh3.googleusercontent.com/ogw/ADGmqu9ht68mx1hUq3uBjXLPuqMGJoe1w3JNDd_ndnBx=s32-c-mo" alt="" id="profilePicture">
+          </li>
+        </ul>
+      </nav>
+
+      <div class="box">
+        <h1>Really Bad Search Engine</h1>
+        <h6 id="images"></h6>
+        <input type="search" id="search"/>
+      </div>
     </div>
-    <button id="imagesButton">Images</button>
-    <h1 id="time" style="font-size: 20px; color: #70757a; font-size: 14px;"></h1>
+
+    <div class="card" style="width: 18rem;" id="card">
+      <img src="..." class="card-img-top" alt="..." id="card-img">
+      <div class="card-body">
+        <h5 class="card-title" id="card-title"></h5>
+        <p class="card-text" id="card-tag"></p>
+        <p class="card-text" id="card-description"></p>
+      </div>
+    </div>
+
+    <div class="card accountInfo" style="width: 18rem;"id="loggedIn">
+      <div class="card-header">
+        Your Account
+      </div>
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item"><a href="history.html">Search History</a></li>
+        <li class="list-group-item"><a href="" id="logout">Log Out</a></li>
+      </ul>
+    </div>
+    <div class="card accountInfo" style="width: 18rem;"id="createAccount">
+      <div class="card-header">
+        Your Account
+      </div>
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item"><a href="signup.html">Create Account</a></li>
+        <li class="list-group-item"><a href="login.html">Log In</a></li>
+      </ul>
+    </div>
     <div id="returnDisplay">
-
     </div>
 
-
-    <div id="card">
-      <img src="" alt="" id="card-img">
-      <h1 id="card-title"></h1>
-      <p id="card-tag"></p>
-      <p id="card-description"></p>
-    </div>
-
-    <style>
-
-      img {
-        height: 100px;
-        width: 100px;
-      }
-
-      * {
-        font-family: 'Roboto', arial, sans-serif;
-      }
-
-      p {
-        margin: 0px;
-      }
-
-      #card {
-        position: absolute;
-        right: 2.5%;
-        top: 10%;
-        width: 15%;
-        height: 500px;
-        border: 2px solid grey;
-        border-radius: 10px;
-      }
-
-      #card-img {
-        width: 50%;
-      }
-
-      #card-description {
-        font-size: 15px;
-        font-style: normal;
-      }
-
-      #searchDiv {
-        float: left;
-        padding-left: 15%;
-        padding-bottom: 10px;
-      }
-
-      #searchDiv input {
-        width: 500px;
-      }
-
-      #content {
-        float: left;
-        padding-left: 15%;
-        margin-bottom: 28px;
-      }
-
-      #urlDisplay {
-        font-size: 14px;
-        color: #202124;
-      }
-
-      #titleDisplay {
-        font-size: 20px;
-        text-decoration: none;
-      }
-
-      #descriptionDisplay {
-        color: #4d5156;
-      }
-
-      #time {
-        float: left;
-        padding-left: 25%;
-      }
-    </style>
-
+    <link rel="stylesheet" href="index.css">
+    <script>
+      console.log("%cDO NOT TYPE ANYTHING IN THIS DIALOG, PEOPLE MAY STEAL YOUR PERSONAL DATA", "background: red; color: yellow; font-size: x-large");
+    </script>
     <script src="index.js"></script>
   </body>
 </html>
