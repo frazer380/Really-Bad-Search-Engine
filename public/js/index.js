@@ -1,6 +1,5 @@
 document.addEventListener('DOMContentLoaded', function() {
     try {
-        
         let app = firebase.app();
         let features = ['auth', 'database', 'messaging', 'storage'].filter(feature => typeof app[feature] === 'function');
         let db = firebase.firestore();
@@ -14,29 +13,37 @@ document.addEventListener('DOMContentLoaded', function() {
         let cardDesc = document.getElementById("card-description");
         let profilePicture = document.getElementById("profilePicture");
         let loggedIn = document.getElementById("loggedIn");
-        let loggedOut = document.getElementById("createAccount")
+        let createAccount = document.getElementById("createAccount")
+        let logoutButton = document.getElementById("logout");
+        let notSearched = document.getElementById("notSearched");
+        let time = document.getElementById("time");
+        let images;
+        let imagesButton = document.getElementById("imagesButton")
+        let imagesUI = document.getElementById("images");
+        let searchBox = document.getElementById("search");
+
+        loggedIn.style.display = "none";
+        createAccount.style.display = "none";  
+        card.style.display = "none";
 
 
-        document.getElementById("logout").addEventListener("click", function() {
+        logout.addEventListener("click", function() {
             firebase.auth().signOut().then(function() {
                 // Sign-out successful.
               }).catch(function(error) {
                 // An error happened.
             });
         });
-
-        loggedIn.style.display = "none";
-        loggedOut.style.display = "none";   
+ 
         profilePicture.addEventListener("click", function() {
             firebase.auth().onAuthStateChanged(function(user) {
                 if (user) {
                   loggedIn.style.display  = "block";
                 } else {
-                  loggedOut.style.display = "block";
+                  createAccount.style.display = "block";
                 }
             });
         });
-        card.style.display = "none";
         try {
             var url_string = (window.location.href).toLowerCase();
             var url_instance = new URL(url_string);
@@ -62,6 +69,8 @@ document.addEventListener('DOMContentLoaded', function() {
             } catch(error) {console.log(error)}
             console.log(err);
         }
+
+
         function renderCard(input) {
             input = input.toLowerCase()
             if(input == "google") {
@@ -89,8 +98,7 @@ document.addEventListener('DOMContentLoaded', function() {
             // set input box to input
             document.getElementById("search").value = input;
             // remove main page
-            document.getElementById("notSearched").style.display = "none";
-
+            notSearched.style.display = "none";
             // set history
             firebase.auth().onAuthStateChanged(function(user) {
                 if (user) {
@@ -103,14 +111,11 @@ document.addEventListener('DOMContentLoaded', function() {
                           History: history
                       })
                   })
-                } else {
-                  // Do nothing
                 }
               });
             
 
             // actually search
-            let time = document.getElementById("time");
             card.style.display = "none";
             returnDisplay.innerHTML = '<div for="search" class="top"><label id="labelReturn"><a href="index.html">RBSE</a></label><input type="search" id="search"/></div>';
             let searchedSites = [];
@@ -148,7 +153,7 @@ document.addEventListener('DOMContentLoaded', function() {
             //time.innerHTML = `${timeToGetData} milliseconds`;
         }
         function searchImages(input) {
-            document.getElementById("notSearched").style.display = "none";
+            notSearched.style.display = "none";
             returnDisplay.innerHTML = '<div for="search" class="top"><label id="labelReturn"><a href="index.html">RBSE</a></label><input type="search" id="search"/></div>';
             let data = db.collection("sites").orderBy("PageRank", "desc").get().then(snapshot => {
                 document.getElementById("returnDisplay").innerHTML = "";
@@ -187,22 +192,21 @@ document.addEventListener('DOMContentLoaded', function() {
                 });
             });
         }
-        let images;
-        document.getElementById("imagesButton").addEventListener("click", function() {
+        imagesButton.addEventListener("click", function() {
             if(!images) {
-                document.getElementById("imagesButton").innerHTML = "Normal Search";
-                document.getElementById("images").innerHTML = "IMAGES";
+                imagesButton.innerHTML = "Normal Search";
+                imagesUI.innerHTML = "IMAGES";
                 images = true;
-            } else { images = false; document.getElementById("imagesButton").innerHTML = "Images";  document.getElementById("images").innerHTML = "";}
+            } else { images = false; imagesButton.innerHTML = "Images";  imagesUI.innerHTML = "";}
         })
         document.getElementById("search").addEventListener("keyup", function(event) {
             if(event.key === "Enter") {
                 time1 = new Date().getMilliseconds();
                 if(!images) {
-                    let location = "/?search=" + document.getElementById("search").value;
+                    let location = "/?search=" + searchBox.value;
                     window.location.href = location;
                 } else {
-                    let location = "/?imgsearch="  + document.getElementById("search").value;
+                    let location = "/?imgsearch="  + searchBox.value;
                     window.location.href = location;
                 }
             }

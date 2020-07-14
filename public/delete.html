@@ -27,7 +27,7 @@
                 <a class="nav-link" href="index.html">Home <span class="sr-only"></span></a>
             </li>
             <li class="nav-item active">
-              <a class="nav-link" id="credentials">Credentials <span class="sr-only"></span></a>
+              <a class="nav-link" href="account.html" id="credentials">Credentials <span class="sr-only"></span></a>
             </li>
             <li class="nav-item active">
                 <a class="nav-link" href="history.html">History <span class="sr-only"><span></a>
@@ -45,31 +45,6 @@
         A simple danger alert—check it out!
       </div>
     </div>
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            document.getElementById("alert").style.display = "none";
-            let app = firebase.app();
-            let features = ['auth', 'database', 'messaging', 'storage'].filter(feature => typeof app[feature] === 'function');
-            let db = firebase.firestore();
-
-            
-            function deleteAccount() {
-                firebase.auth().onAuthStateChanged(function(user) {
-                    db.collection("users").doc(user.uid).delete().then(() => {
-                        user.delete().then(function() {
-                            document.getElementById("jumbotron").innerHTML = "<h1>Account Deleted!</h1>";
-                        }).catch(function(error) {
-                            document.getElementById("jumbotron").innerHTML = `<h1>${error.message}</h1>`;
-                        });
-                        }).catch(error => {
-                            console.log(error);
-                    })
-
-                });
-            }
-
-            document.getElementById("delete").addEventListener("click", deleteAccount());
-        })
-    </script>
+    <script src="js/delete-account.js"></script>
 </body>
 </html>
